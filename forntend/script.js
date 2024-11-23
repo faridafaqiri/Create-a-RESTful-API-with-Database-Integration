@@ -1,27 +1,28 @@
 const apiUrl = 'http://localhost:3000/api/tasks';
 
-// Function to fetch tasks from the API
-async function fetchTasks() {
-  const response = await fetch(apiUrl);
-  const tasks = await response.json();
-  displayTasks(tasks);
-}
-
 // Function to display tasks
 function displayTasks(tasks) {
   const tasksContainer = document.getElementById('tasksContainer');
   tasksContainer.innerHTML = '';
-  tasks.forEach(task => {
+  
+  tasks.forEach((task) => {
     const taskElement = document.createElement('div');
     taskElement.className = 'task';
     taskElement.innerHTML = `
       <h3>${task.title}</h3>
       <p>${task.description}</p>
-      <button onclick="deleteTask('${task._id}')">Delete</button>
-      <button onclick="showUpdateForm('${task._id}', '${task.title}', '${task.description}')">Update</button>
-      `;
-      tasksContainer.appendChild(taskElement);
-    });
+      <button onclick="deleteTask('${task.id}')">Delete</button>
+      <button onclick="showUpdateForm('${task.id}', '${task.title}', '${task.description}')">Update</button>
+    `;
+    tasksContainer.appendChild(taskElement);
+  });
+}
+
+// Function to fetch tasks from the API
+async function fetchTasks() {
+  const response = await fetch(apiUrl);
+  const tasks = await response.json();
+  displayTasks(tasks);
 }
 
 // Function to handle adding a task
@@ -33,12 +34,12 @@ document.getElementById('addTaskForm').addEventListener('submit', async (event) 
   await fetch(apiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title, description })
-    });
+    body: JSON.stringify({ title, description }),
+  });
 
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    fetchTasks();
+  document.getElementById('taskTitle').value = '';
+  document.getElementById('taskDescription').value = '';
+  fetchTasks();
 });
 
 // Function to delete a task
@@ -68,12 +69,12 @@ async function updateTask(id) {
   await fetch(`${apiUrl}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title, description })
-    });
+    body: JSON.stringify({ title, description }),
+  });
 
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    fetchTasks();
+  document.getElementById('taskTitle').value = '';
+  document.getElementById('taskDescription').value = '';
+  fetchTasks();
 }
 
 // Initial fetch of tasks
