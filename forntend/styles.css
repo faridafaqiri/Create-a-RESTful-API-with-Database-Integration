@@ -76,10 +76,10 @@ button:hover {
 /* Responsive Styles */
 @media (max-width: 600px) {
   form {
-      width: 90%;
+    width: 90%;
   }
 
   h1 {
-      font-size: 2em;
+    font-size: 2em;
   }
 }
