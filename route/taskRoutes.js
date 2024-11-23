@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/Task'); // Removed the .js extension
+const Task = require('../models/Task');
 
 // GET all tasks
 router.get('/', async (req, res) => {
   try {
     const tasks = await Task.find();
-    res.json(tasks);
+    return res.json(tasks);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -21,9 +21,9 @@ router.post('/', async (req, res) => {
 
   try {
     const newTask = await task.save();
-    res.status(201).json(newTask);
+    return res.status(201).json(newTask);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 });
 
@@ -35,9 +35,9 @@ router.put('/:id', async (req, res) => {
     if (!updatedTask) {
       return res.status(404).json({ message: 'Task not found' });
     }
-    res.json(updatedTask);
+    return res.json(updatedTask); // Ensured a return value
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 });
 
@@ -49,9 +49,9 @@ router.delete('/:id', async (req, res) => {
     if (!deletedTask) {
       return res.status(404).json({ message: 'Task not found' });
     }
-    res.json({ message: 'Task deleted successfully' });
+    return res.json({ message: 'Task deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 

@@ -18,8 +18,8 @@ function displayTasks(tasks) {
     taskElement.innerHTML = `
       <h3>${task.title}</h3>
       <p>${task.description}</p>
-      <button onclick="deleteTask('${task._id}')">Delete</button>
-      <button onclick="showUpdateForm('${task._id}', '${task.title}', '${task.description}')">Update</button>
+      <button onclick="deleteTask('${task.id}')">Delete</button>
+      <button onclick="showUpdateForm('${task.id}', '${task.title}', '${task.description}')">Update</button>
     `;
     tasksContainer.appendChild(taskElement);
   });
