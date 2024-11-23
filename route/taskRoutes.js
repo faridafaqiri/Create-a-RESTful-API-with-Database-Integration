@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) => {
     if (!updatedTask) {
       return res.status(404).json({ message: 'Task not found' });
     }
-    return res.json(updatedTask); // Ensured a return value
+    return res.json(updatedTask);
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
